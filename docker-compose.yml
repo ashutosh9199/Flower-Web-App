@@ -1,0 +1,22 @@
+version: '3.8'
+
+services:
+  flower-app-web:
+    image: ashutosh4782/flower6:latest
+    container_name: flower-app-new
+    ports:
+      - "3017:3015"
+
+  mongodb:
+    image: mongo:7
+    container_name: flower-mongodb-new
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: admin123
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+volumes:
+  mongo-data:
