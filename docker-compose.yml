@@ -1,15 +1,10 @@
-version: '3.8'
+version: "3.8"
 
 services:
-  flower-app-web:
-    build: .
-    container_name: flower-app-new
-    ports:
-      - "3017:3015"
 
   mongodb:
     image: mongo:7
-    container_name: flower-mongodb-new
+    container_name: flower-mongodb
     restart: always
     environment:
       MONGO_INITDB_ROOT_USERNAME: admin
@@ -18,5 +13,17 @@ services:
       - "27017:27017"
     volumes:
       - mongo-data:/data/db
+
+  flower-app:
+    build: .
+    container_name: flower-app-new
+    restart: always
+    ports:
+      - "3015:3015"
+    env_file:
+      - .env
+    depends_on:
+      - mongodb
+
 volumes:
   mongo-data:
