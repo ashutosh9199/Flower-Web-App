@@ -1,7 +1,13 @@
-FROM node:latest
+FROM node:18-alpine
+
 WORKDIR /app
-COPY pacakge*.json ./
-RUN npm install
-COPY ..
-EXPOSE 3000
-CMP ["npm","start"]
+
+COPY package*.json ./
+
+RUN npm install --production
+
+COPY . .
+
+EXPOSE 3015
+
+CMD ["node", "app.js"]
